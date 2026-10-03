@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Gestão Escolar</title>
+  <link rel="stylesheet" href="Sistema_de_Planejamento_de_Aulas.css">
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Sistema de Planejamento & Notas Escolares</h1>
+    </header>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="tab-notas" onclick="switchTab('tab-notas', event)">Notas & Médias</button>
+      <button class="tab-btn" data-tab="tab-aulas" onclick="switchTab('tab-aulas', event)">Planejamento de Aulas</button>
+      <button class="tab-btn" data-tab="tab-dashboard" onclick="switchTab('tab-dashboard', event)">Dashboard</button>
+    </div>
+
+    <div id="tab-notas" class="tab-content active">
+      <div class="card">
+        <h3>Lançar Notas do Aluno</h3>
+        <form id="form-nota" onsubmit="salvarNovaNota(event)">
+          <input type="hidden" id="nota-editando-id" value="">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Nome do Aluno</label>
+              <input type="text" id="aluno-nome" required placeholder="Ex: Lucas Gabriel">
+            </div>
+            <div class="form-group">
+              <label>Disciplina</label>
+              <input type="text" id="aluno-disc" required placeholder="Ex: Matemática">
+            </div>
+            <div class="form-group">
+              <label>Tarefa 1 (0 a 10)</label>
+              <input type="number" step="0.1" min="0" max="10" id="aluno-t1" required>
+            </div>
+            <div class="form-group">
+              <label>Tarefa 2 (0 a 10)</label>
+              <input type="number" step="0.1" min="0" max="10" id="aluno-t2" required>
+            </div>
+            <div class="form-group">
+              <label>Prova 1 (0 a 10)</label>
+              <input type="number" step="0.1" min="0" max="10" id="aluno-p1" required>
+            </div>
+            <div class="form-group">
+              <label>Prova 2 (0 a 10)</label>
+              <input type="number" step="0.1" min="0" max="10" id="aluno-p2" required>
+            </div>
+          </div>
+          <button type="submit" id="submit-nota-btn" class="btn-primary">Lançar e Calcular Médias</button>
+        </form>
+      </div>
+
+      <div class="card filters-card">
+        <h3>Filtrar registros</h3>
+        <div class="filter-grid">
+          <div class="form-group">
+            <label for="filtro-aluno">Aluno</label>
+            <input id="filtro-aluno" type="text" placeholder="Filtrar por aluno">
+          </div>
+          <div class="form-group">
+            <label for="filtro-disciplina">Disciplina</label>
+            <input id="filtro-disciplina" type="text" placeholder="Filtrar por disciplina">
+          </div>
+        </div>
+        <button type="button" id="btn-limpar-filtros" class="btn-secondary">Limpar filtros</button>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Aluno</th>
+              <th>Disciplina</th>
+              <th>T1</th>
+              <th>T2</th>
+              <th>Média Tarefas</th>
+              <th>P1</th>
+              <th>P2</th>
+              <th>Média Provas</th>
+              <th>Média Final</th>
+              <th>Situação</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tb-notas-body">
+            <tr><td colspan="11" class="empty-state">Carregando notas...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="tab-aulas" class="tab-content">
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th><th>Horário</th><th>Professor(a)</th><th>Disciplina</th><th>Turma</th><th>Conteúdo</th>
+            </tr>
+          </thead>
+          <tbody id="tb-aulas-body">
+            <tr><td colspan="6" class="empty-state">Carregando dados...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="tab-dashboard" class="tab-content">
+      <div class="kpi-grid">
+        <div class="card">
+          <div class="kpi-title">Média Geral da Turma</div>
+          <div class="kpi-value" id="kpi-media-geral">0.0</div>
+        </div>
+        <div class="card">
+          <div class="kpi-title">Aprovados</div>
+          <div class="kpi-value" id="kpi-aprovados" style="color: var(--success);">0</div>
+        </div>
+        <div class="card">
+          <div class="kpi-title">Em Recuperação</div>
+          <div class="kpi-value" id="kpi-recup" style="color: #b06000;">0</div>
+        </div>
+        <div class="card">
+          <div class="kpi-title">Reprovados</div>
+          <div class="kpi-value" id="kpi-reprov" style="color: var(--danger);">0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="Sistema_de_Planejamento_de_Aulas.js"></script>
+</body>
+</html>
